@@ -15,8 +15,7 @@ a user to do the following:-
 * Add, remove, update, delete an expense 
 * Add, remove, update, delete an investment
 
-#### Money works is built with love by Lorraine Makuyana
-#### Link to Twitter Profile
+#### Link to Lorraine's Twitter Profile
 https://twitter.com/lolomakuyana
 
 #### Link to LinkedIn profile 
