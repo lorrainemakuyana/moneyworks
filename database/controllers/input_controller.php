@@ -2,11 +2,9 @@
 
     include_once (dirname(__FILE__)).'../../classes/input_class.php';
 
-    function upload($input, $uploaded_by, $course, $file) {
-        
-        $request = new ResourceHub;
-        $runQuery = $request->upload($input, $uploaded_by, $course, $file);
-        
+    function addExpense($user_id, $description, $amount, $category) {
+        $request = new Moneyworks; 
+        $runQuery = $request->addExpense($user_id, $description, $amount, $category);              
         if($runQuery) {
             return $runQuery;
         } else {
@@ -14,29 +12,9 @@
         }
     }
 
-    function getByCourse($course) {
-        $request = new ResourceHub; 
-        $runQuery = $request->getByCourse($course); 
-        if ($runQuery) {
-            return $runQuery;
-        } else {
-            return false;
-        }
-    }
-
-    function updateFile($id, $filename, $file) {
-        $request = new ResourceHub; 
-        $runQuery = $request->updateFile($id, $filename, $file);
-        if($runQuery) {
-            return $runQuery;
-        } else {
-            return false;
-        }
-    }
-
-    function deleteFile($id) {
-        $request = new ResourceHub;
-        $runQuery = $request->deleteFile($id, $filename, $file); 
+    function updateExpense($id, $description, $amount, $category) {
+        $request = new Moneyworks; 
+        $runQuery = $request->updateExpense($id, $description, $amount, $category); 
         if ($runQuery) {
             return $runQuery; 
         } else {
@@ -44,9 +22,59 @@
         }
     }
 
-    function getUser($id) {
-        $request = new ResourceHub;
-        $runQuery = $request->getUser($id); 
+    function removeExpense($id) {
+        $request = new Moneyworks; 
+        $runQuery = $request->removeExpense($id);
+        if($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
+    }
+
+    function addInvestment($user_id, $type, $profit, $loss, $daily_earning, $end_date) {
+        $request = new Moneyworks; 
+        $runQuery = $request->addInvestment($user_id, $type, $profit, $loss, $daily_earning, $end_date); 
+        if($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
+    }
+
+    function deleteInvestment($id) {
+        $request = new Moneyworks;
+        $runQuery = $request->deleteInvestment($id); 
+        if ($runQuery) {
+            return $runQuery; 
+        } else {
+            return false; 
+        }
+    }
+
+    function updateInvestment($id, $type, $profit, $loss, $daily_earning, $end_date) {
+        $request = new Moneyworks;
+        $runQuery = $request->updateInvestment($id, $type, $profit, $loss, $daily_earning, $end_date); 
+        if ($runQuery) {
+            return $runQuery; 
+        } else {
+            return false; 
+        }
+    }
+
+    function addBalance($id, $amount) {
+        $request = new Moneyworks;
+        $runQuery = $request->addBalance($id, $amount);
+        if ($runQuery) {
+            return $runQuery; 
+        } else {
+            return false; 
+        }
+    }
+
+    function addIncome($id, $amount, $description) {
+        $request = new Moneyworks;
+        $runQuery = $request->addIncome($id, $amount, $description);
         if ($runQuery) {
             return $runQuery; 
         } else {

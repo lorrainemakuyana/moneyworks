@@ -1,10 +1,21 @@
 <?php
 require_once (dirname(__FILE__)).'../../settings/db_class.php';
-class ResourceHub extends Database {
+
+class Moneyworks extends Database {
 
     public function addExpense($user_id, $description, $amount, $category) {
         $sql = "INSERT INTO `expenses` (`user_id`, `description`, `amount`, `category`) VALUES ('$user_id', '$description', '$amount', '$category')";
         return $this->db_query($sql);
+    }
+
+    public function updateExpense($id, $description, $amount, $category) {
+        $sql = "UPDATE TABLE expenses SET `descriptin`='$description', `amount`='$amount', `category`='$category' WHERE `id`='$id";
+        return $this->db_query($sql);  
+    }
+
+    public function removeExpense($id) {
+        $sql = "DELETE FROM `expenses` WHERE id = '$id'"; 
+        return $this->db_query($sql); 
     }
 
     public function addInvestment($user_id, $type, $profit, $loss, $daily_earning, $end_date) {
@@ -12,7 +23,34 @@ class ResourceHub extends Database {
         return $this->db_query($sql);
     }
 
-    
+    public function deleteInvestment($id) {
+        $sql = "DELETE FROM `investments` WHERE `id`='$id'"; 
+        return $this->db_query($sql); 
+    }
+
+    public function updateInvestment($id, $type, $profit, $loss, $daily_earning, $end_date) {
+        $sql = "UPDATE TABLE `investments` SET `type`='$type', `profit_percentage`='$profit', `loss_percentage`='$loss', `daily_earning`='$daily_earning', `end_date`='$end_date' WHERE `id`='$id'"; 
+        return $this->db_query($sql); 
+    }
+
+    public function addBalance($id, $amount) {
+        // get existing balance
+        $sql_bal = "SELECT `balance` FROM users WHERE `id`='$id'";
+        $results = $this->db_query($sql_bal); 
+        if ($results) {
+            $new_balance = $amount + $results; 
+            $sql = "UPDATE TABLE users SET `balance`='$new_balance'"; 
+            return $this->db_query($sql); 
+        }
+    }
+
+    public function addIncome($id, $amount, $description) {
+        $res = addBalance($id, $amount);
+        if ($res) {
+            $sql = "INSERT INTO income (`user_id`, `description`, `amount`) VALUES ('$id', '$description', '$amount')"; 
+            return $this->db_query($sql);
+        }
+    }
 }
 
 ?>

@@ -1,34 +1,53 @@
-DROP DATABASE IF EXISTS resource_hub;
+DROP DATABASE IF EXISTS money_works; 
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+CREATE DATABASE money_works;  
 
-CREATE DATABASE resource_hub; 
-USE resource_hub;
+USE money_works; 
 
-CREATE TABLE users (
-    id int(11) NOT NULL AUTO_INCREMENT,
-    email varchar(255) NOT NULL, 
-    fullname varchar(255) NOT NULL, 
-    major varchar(255) NOT NULL, 
-    yeargroup varchar(255) NOT NULL, 
-    password varchar(255) NOT NULL, 
+CREATE TABLE users(
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255), 
+    password VARCHAR(255), 
+    full_name VARCHAR(255),
+    email VARCHAR(255),
+    phone_number VARCHAR(255),
+    gender VARCHAR(255),
+    date_of_birth DATE, 
+    balance DOUBLE(10, 2),
     PRIMARY KEY(id)
 );
 
-CREATE TABLE files (
-    id int(11) NOT NULL AUTO_INCREMENT,
-    user_id int(11) NOT NULL,
-    filename varchar(255),
-    uploaded_by varchar(255), 
-    course varchar(255) NOT NULL, 
-    file varchar(255),
-    date DATE DEFAULT CURRENT_TIMESTAMP(),
+CREATE TABLE expenses(
+    id INT NOT NULL AUTO_INCREMENT, 
+    user_id INT,
+    date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    description TEXT, 
+    amount DOUBLE(10, 2),
+    category VARCHAR(255),
     PRIMARY KEY(id), 
+    FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
-INSERT INTO `users` (`id`, `email`, `fullname`, `major`, `yeargroup`, `password`) VALUES 
-(NULL, 'lorraine@example.com', 'Lorraine Makuyana', 'CE', '2022', '12345678'), 
-(NULL, 'joana@example.com', 'Joana Teye', 'CE', '2022', '87654321');
+CREATE TABLE income(
+    id INT NOT NULL AUTO_INCREMENT, 
+    user_id INT,
+    date DATETIME DEFAULT CURRENT_TIMESTAMP, 
+    description TEXT, 
+    amount DOUBLE(10, 2),
+    PRIMARY KEY(id), 
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE TABLE investments(
+    id INT NOT NULL AUTO_INCREMENT, 
+    user_id INT, 
+    type VARCHAR(255),
+    description TEXT,
+    profit_percentage INT, 
+    loss_percentage INT, 
+    daily_earning DOUBLE(10, 2),
+    end_date DATE,
+    PRIMARY KEY(id), 
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+    
