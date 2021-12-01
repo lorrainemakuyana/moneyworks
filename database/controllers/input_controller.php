@@ -81,4 +81,9 @@
             return false; 
         }
     }
+
+    function addUser($email, $username, $password) {
+        $protected_password = md5($password); 
+        $runQuery = $request->addUser()
+    }
 ?>
