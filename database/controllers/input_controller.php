@@ -83,7 +83,34 @@
     }
 
     function addUser($email, $username, $password) {
+        $request = new Moneyworks;
         $protected_password = md5($password); 
-        $runQuery = $request->addUser()
+        $runQuery = $request->addUser($email, $username, $protected_password); 
+        if ($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
+    }
+
+    function validateUserCredentials($username, $email) {
+        $request = new Moneyworks; 
+        $runQuery = $request->validateUserCredentials($username, $email); 
+        if ($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
+    }
+
+    function login($username, $password) {
+        $request = new Moneyworks;
+        $protected_password = md5($password);
+        $runQuery = $request->login($username, $protected_password); 
+        if ($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
     }
 ?>

@@ -51,6 +51,21 @@ class Moneyworks extends Database {
             return $this->db_query($sql);
         }
     }
+
+    public function addUser($email, $username, $password) {
+        $sql = "INSERT INTO users (`username`, `password`, `balance`, `email_address`) VALUES ('$username', '$password', 0, '$email');";
+        return $this->db_query($sql); 
+    }
+
+    public function validateUserCredentials($username, $email) {
+        $sql = "SELECT * FROM users WHERE `username`='$username' OR `email_address`='$email' LIMIT 1"; 
+        return $this->db_query($sql);
+    }
+
+    public function login($username, $password) {
+        $sql = "SELECT * FROM users WHERE `username`='$username' AND `password`='$password'"; 
+        return $this->db_query($sql);
+    }
 }
 
 ?>

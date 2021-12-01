@@ -20,7 +20,6 @@ class Database {
 			echo "db connect failed";
 			return false;
 		}
-
 		$this->results = mysqli_query($this->db, $sqlQuery);
 		return $this->results;
 	}

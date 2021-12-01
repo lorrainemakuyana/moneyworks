@@ -1,12 +1,29 @@
-<?php 
-    if(isset($_POST['register'])) {
-      echo "Regiter button clicked"
+<?php require("database/controllers/input_controller.php"); 
+
+  function registerUser($username, $email, $password) {
+    $res = addUser($email, $username, $password); 
+    if ($res) {
+      header("location: ./login.php"); 
+    } else {
+      echo "Registration failed, please try again";
     }
+  }
+ 
+  if(isset($_POST['register'])) {
+    $username = $_POST['username']; 
+    $email = $_POST['email'];
+    $password = $_POST['password']; 
+    $validateDetails = validateUserCredentials($username, $email)->fetch_array(MYSQLI_ASSOC); 
+    if (!$validateDetails) {
+      registerUser($username, $email, $password);
+    } else {
+    ?> 
+      <script> alert("Username or Email already exists. Please use different credentials.") </script>
+    <?php
+    }
+  }
 
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,12 +56,6 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.2.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -73,11 +84,11 @@
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" novalidate name="register-form" method="post">
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Your Username</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
+                      <label for="username" class="form-label">Your Username</label>
+                      <input type="text" name="username" class="form-control" id="username" required>
+                      <div class="invalid-feedback">Please, enter your username!</div>
                     </div>
 
                     <div class="col-12">
@@ -99,18 +110,10 @@
                     </div>
 
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <input type="submit" name="register" class="btn btn-primary w-100" value="Create Account">
+                      <input type="submit" name="register" class="btn btn-primary w-100" value="Create Account" id="register-btn">
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="login.html">Log in</a></p>
+                      <p class="small mb-0">Already have an account? <a href="login.php">Log in</a></p>
                     </div>
                   </form>
 
@@ -122,7 +125,7 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
               </div>
 
             </div>
@@ -148,6 +151,8 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script src="scripts/register.js"></script>
 
 </body>
 
