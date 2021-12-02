@@ -1,3 +1,32 @@
+<?php
+
+require("database/controllers/input_controller.php"); 
+
+$username = $_GET['username'];
+
+if(isset($_POST['addinvestment'])) {
+
+  $description = $_POST['description'];
+  $type = $_POST['type'];
+  $amount = $_POST['amount']; 
+  $profit = $_POST['profit']; 
+  $results = addInvestment($username, $type, $description, $profit, $amount); 
+  if($results) {
+    ?> 
+    <script> alert("Investment added successfully.") </script>
+    <?php
+    header("location: ./dashboard.php?username=$username");
+  } else {
+    ?> 
+    <script> alert("Adding investment failed. Please try again.") </script>
+    <?php
+    header("location: ./add-investment.php?username=$username");
+  }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +34,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+  <title>Add Investment</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -51,14 +80,14 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dashboard.html">
+      <?php echo "<a class='nav-link' href='dashboard.php?username=$username'>"; ?>
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="add-expense.html">
+      <?php echo "<a class='nav-link' href='add-expense.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
           <span>Add Expense</span>
         </a>
@@ -74,21 +103,21 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+      <?php echo "<a class='nav-link' href='user-profile.php?username=$username'>"; ?>
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
+      <?php echo "<a class='nav-link' href='faq.php?username=$username'>"; ?>
           <i class="bi bi-question-circle"></i>
           <span>F.A.Q</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
+      <?php echo "<a class='nav-link' href='contact.php?username=$username'>"; ?>
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
@@ -108,7 +137,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Expenses</h1>
+      <h1>Investments</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -120,18 +149,18 @@
               <h5 class="card-title">Add New Investment</h5>
 
               <!-- General Form Elements -->
-              <form method="post" action="dashboard.html">
+              <form method="post" >
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Description</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" required>
+                    <input type="text" name="description" class="form-control" required>
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Type</label>
                   <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" required>
+                    <select class="form-select" name="type" aria-label="Default select example" required>
                       <option selected value="">Select type</option>
                       <option value="cryptocurrency">Cryptocurrency</option>
                       <option value="forex">Forex</option>
@@ -142,23 +171,23 @@
                 </div>
 
                 <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">Profit %</label>
+                  <label for="inputText" class="col-sm-2 col-form-label">Daily Profit %</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" required>
+                    <input type="number" name="profit" class="form-control" required>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">Cost</label>
+                  <label for="inputText" class="col-sm-2 col-form-label">Amount</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" required>
+                    <input type="text" name="amount" class="form-control" required>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Add Investment</label>
+                  <label class="col-sm-2 col-form-label">             </label>
                   <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Add Investment</button>
+                    <input type="submit" name="addinvestment" class="btn btn-primary" value="Add Investment">
                   </div>
                 </div>
 
@@ -178,12 +207,7 @@
     <div class="copyright">
       &copy; 2021 <strong><span>Moneyworks!</span></strong>. All Rights Reserved
     </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+    <div class="credits"
     </div>
   </footer><!-- End Footer -->
 

@@ -1,3 +1,43 @@
+<?php
+
+require("database/controllers/input_controller.php"); 
+
+$username = $_GET['username'];
+
+echo $username;
+
+if(isset($_POST['addexpense'])) {
+  $description = $_POST['description'];
+  $category = $_POST['category'];
+  $cost = $_POST['cost']; 
+  $results = addExpense($username, $description, $cost, $category); 
+  if($results) {
+    $current_balance = getBalance($username)->fetch_array(MYSQLI_NUM);
+    $current_balance = $current_balance[0]; 
+    $new_balance = $current_balance - $cost; 
+    $result2 = updateBalance($username, $new_balance); 
+    if ($result2) {
+      ?> 
+      <script> alert("Expense added and balance updated successfully.") </script>
+      <?php
+      header("location: ./dashboard.php?username=$username");
+    } else {
+      ?> 
+      <script> alert("Balance update failed. Please try again.") </script>
+      <?php
+      header("location: ./add-expense.php?username=$username");
+    }
+  } else {
+    ?> 
+    <script> alert("Adding expense failed. Please try again.") </script>
+    <?php
+    header("location: ./add-expense.php?username=$username");
+  }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +45,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+  <title>Add Expense | Moneyworks!</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -54,7 +94,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dashboard.html">
+        <?php echo "<a class='nav-link' href='dashboard.php?username=$username'>"; ?>
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -68,7 +108,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="add-investment.html">
+      <?php echo "<a class='nav-link' href='add-investment.php?username=$username'>"; ?>
           <i class="bi bi-arrow-down-up"></i>
           <span>Add Investment</span>
         </a>
@@ -77,28 +117,28 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+      <?php echo "<a class='nav-link' href='user-profile.php?username=$username'>"; ?>
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
+      <?php echo "<a class='nav-link' href='faq.php?username=$username'>"; ?>
           <i class="bi bi-question-circle"></i>
           <span>F.A.Q</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
+      <?php echo "<a class='nav-link' href='contact.php?username=$username'>"; ?>
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="login.php">
           <i class="bi bi-box-arrow-left"></i>
           <span>Logout</span>
         </a>
@@ -123,11 +163,11 @@
               <h5 class="card-title">Add New Expense</h5>
 
               <!-- General Form Elements -->
-              <form method="post" action="dashboard.html">
+              <form method="post" >
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Description</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" required>
+                    <input type="text" name="description" class="form-control" required>
                   </div>
                 </div>
                 
@@ -135,7 +175,7 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Category</label>
                   <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" required>
+                    <select class="form-select" aria-label="Default select example" name="category" required>
                       <option selected>Select Category</option>
                       <option value="general">General</option>
                       <option value="fashion">Clothing</option>
@@ -150,14 +190,14 @@
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Cost</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" required>
+                    <input type="number" class="form-control" name="cost" required>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Add Expense</label>
+                  <label class="col-sm-2 col-form-label">          </label>
                   <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Add Expense</button>
+                    <input type="submit" name="addexpense" class="btn btn-primary" value="Add Expense">
                   </div>
                 </div>
 

@@ -2,9 +2,9 @@
 
     include_once (dirname(__FILE__)).'../../classes/input_class.php';
 
-    function addExpense($user_id, $description, $amount, $category) {
+    function addExpense($username, $description, $amount, $category) {
         $request = new Moneyworks; 
-        $runQuery = $request->addExpense($user_id, $description, $amount, $category);              
+        $runQuery = $request->addExpense($username, $description, $amount, $category);              
         if($runQuery) {
             return $runQuery;
         } else {
@@ -12,9 +12,9 @@
         }
     }
 
-    function updateExpense($id, $description, $amount, $category) {
+    function getExpense($id) {
         $request = new Moneyworks; 
-        $runQuery = $request->updateExpense($id, $description, $amount, $category); 
+        $runQuery = $request->getExpense($id); 
         if ($runQuery) {
             return $runQuery; 
         } else {
@@ -22,9 +22,9 @@
         }
     }
 
-    function removeExpense($id) {
+    function deleteExpense($id) {
         $request = new Moneyworks; 
-        $runQuery = $request->removeExpense($id);
+        $runQuery = $request->deleteExpense($id);
         if($runQuery) {
             return $runQuery;
         } else {
@@ -32,9 +32,19 @@
         }
     }
 
-    function addInvestment($user_id, $type, $profit, $loss, $daily_earning, $end_date) {
+    function getUserExpenses($username) {
         $request = new Moneyworks; 
-        $runQuery = $request->addInvestment($user_id, $type, $profit, $loss, $daily_earning, $end_date); 
+        $runQuery = $request->getUserExpenses($username);
+        if($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
+    }
+
+    function addInvestment($username, $type, $description, $profit, $amount) {
+        $request = new Moneyworks; 
+        $runQuery = $request->addInvestment($username, $type, $description, $profit, $amount);
         if($runQuery) {
             return $runQuery;
         } else {
@@ -52,9 +62,19 @@
         }
     }
 
-    function updateInvestment($id, $type, $profit, $loss, $daily_earning, $end_date) {
+    function getUserInvestments($username) {
+        $request = new Moneyworks; 
+        $runQuery = $request->getUserInvestments($username);
+        if($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
+    }
+
+    function addBalance($username, $amount) {
         $request = new Moneyworks;
-        $runQuery = $request->updateInvestment($id, $type, $profit, $loss, $daily_earning, $end_date); 
+        $runQuery = $request->addBalance($username, $amount);
         if ($runQuery) {
             return $runQuery; 
         } else {
@@ -62,9 +82,9 @@
         }
     }
 
-    function addBalance($id, $amount) {
+    function getBalance($username) {
         $request = new Moneyworks;
-        $runQuery = $request->addBalance($id, $amount);
+        $runQuery = $request->getBalance($username);
         if ($runQuery) {
             return $runQuery; 
         } else {
@@ -72,9 +92,9 @@
         }
     }
 
-    function addIncome($id, $amount, $description) {
+    function updateBalance($username, $balance) {
         $request = new Moneyworks;
-        $runQuery = $request->addIncome($id, $amount, $description);
+        $runQuery = $request->updateBalance($username, $balance);
         if ($runQuery) {
             return $runQuery; 
         } else {

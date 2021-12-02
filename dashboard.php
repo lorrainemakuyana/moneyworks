@@ -1,3 +1,37 @@
+<?php
+  require("functions.php");
+
+  $username = $_GET['username'];
+  
+  $totalExp = getTotalExpenses($username); 
+  $totalInv = getTotalInvestments($username); 
+  $totalBal = getBalance($username)->fetch_array(MYSQLI_NUM);
+  $totalBal = $totalBal[0];
+
+  if (isset($_GET['expToDelete'])) {
+    $id = $_GET['expToDelete']; 
+    $cost = getExpense($id)->fetch_array(MYSQLI_NUM);
+    $cost = $cost[0]; 
+    $balance = getBalance($username)->fetch_array(MYSQLI_NUM); 
+    $balance = $balance[0];
+    $balance += $cost; 
+    $results = deleteExpense($id); 
+    if ($results) {
+      updateBalance($username, $balance);
+      header("location: ./dashboard.php?username=$username");
+    } 
+  }
+
+  if (isset($_GET['invToDelete'])) {
+    $id = $_GET['invToDelete']; 
+    $results = deleteInvestment($id); 
+    if ($results) {
+      header("location: ./dashboard.php?username=$username");
+    } 
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +62,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link href="styles/styles.css" rel="stylesheet">
 </head>
 
 <body>
@@ -58,14 +93,14 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="add-expense.html">
+        <?php echo "<a class='nav-link' href='add-expense.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
           <span>Add Expense</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="add-investment.html">
+      <?php echo "<a class='nav-link' href='add-investment.php?username=$username'>"; ?>
           <i class="bi bi-arrow-down-up"></i>
           <span>Add Investment</span>
         </a>
@@ -111,7 +146,7 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
@@ -134,7 +169,7 @@
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
+                      <h6>$ <?php echo $totalExp; ?></h6>
                     </div>
                   </div>
                 </div>
@@ -152,7 +187,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
+                      <h6>$ <?php echo $totalInv; ?></h6>
 
                     </div>
                   </div>
@@ -166,14 +201,14 @@
               <div class="card info-card customers-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Income / Revenue</span></h5>
+                  <h5 class="card-title">Balance</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
+                      <h6>$ <?php echo $totalBal; ?></h6>
                     </div>
                   </div>
 
@@ -189,7 +224,8 @@
                 <div class="card-body">
                   <h5 class="card-title">Expenses </h5>
 
-                  <table class="table table-borderless datatable">
+                  <!-- <table class="table table-borderless datatable"> -->
+                    <table class="table table-borderless datatable">
                     <thead>
                       <tr>
                         <th scope="col">Date</th>
@@ -200,7 +236,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      
+                      <?php
+                        getExpenses($username);
+                      ?>
                     </tbody>
                   </table>
 
@@ -227,7 +265,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      
+                      <?php
+                        getInvestments($username);
+                      ?>
                     </tbody>
                   </table>
                 </div>
@@ -236,65 +276,6 @@
             </div><!-- End Recent Sales -->
           </div>
         </div><!-- End Left side columns -->
-
-        <!-- Right side columns -->
-        <div class="col-lg-4">
-          <!-- News & Updates Traffic -->
-          <!--<div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body pb-0">
-              <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
-
-              <div class="news">
-                <div class="post-item clearfix">
-                  <img src="assets/img/news-1.jpg" alt="">
-                  <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-                  <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/news-2.jpg" alt="">
-                  <h4><a href="#">Quidem autem et impedit</a></h4>
-                  <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/news-3.jpg" alt="">
-                  <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
-                  <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/news-4.jpg" alt="">
-                  <h4><a href="#">Laborum corporis quo dara net para</a></h4>
-                  <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/news-5.jpg" alt="">
-                  <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-                  <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-                </div>
-
-              </div><!-- End sidebar recent posts
-
-            </div>
-          </div>End News & Updates -->
-
-        </div><!-- End Right side columns -->
-
       </div>
     </section>
 

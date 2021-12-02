@@ -3,23 +3,28 @@ require_once (dirname(__FILE__)).'../../settings/db_class.php';
 
 class Moneyworks extends Database {
 
-    public function addExpense($user_id, $description, $amount, $category) {
-        $sql = "INSERT INTO `expenses` (`user_id`, `description`, `amount`, `category`) VALUES ('$user_id', '$description', '$amount', '$category')";
+    public function addExpense($username, $description, $amount, $category) {
+        $sql = "INSERT INTO `expenses` (`username`, `description`, `amount`, `category`) VALUES ('$username', '$description', '$amount', '$category')";
         return $this->db_query($sql);
     }
 
-    public function updateExpense($id, $description, $amount, $category) {
-        $sql = "UPDATE TABLE expenses SET `descriptin`='$description', `amount`='$amount', `category`='$category' WHERE `id`='$id";
-        return $this->db_query($sql);  
+    public function getExpense($id) {
+        $sql = "SELECT amount FROM expenses WHERE `id`='$id'"; 
+        return $this->db_query($sql);
     }
 
-    public function removeExpense($id) {
+    public function deleteExpense($id) {
         $sql = "DELETE FROM `expenses` WHERE id = '$id'"; 
         return $this->db_query($sql); 
     }
 
-    public function addInvestment($user_id, $type, $profit, $loss, $daily_earning, $end_date) {
-        $sql = "INSERT INTO `investments` (`user_id`, `type`, `profit`, `loss`, `daily_earning`, `end_date`) VALUES ('$user_id', '$type', '$profit', '$loss', '$daily_earning', '$end_date')";
+    public function getUserExpenses($username) {
+        $sql = "SELECT * FROM expenses WHERE `username`='$username'";
+        return $this->db_query($sql); 
+    }
+
+    public function addInvestment($username, $type, $description, $profit, $amount) {
+        $sql = "INSERT INTO `investments` (`username`, `type`, `description`, `profit`, `amount`) VALUES ('$username', '$type', '$description', '$profit', '$amount')"; 
         return $this->db_query($sql);
     }
 
@@ -28,28 +33,19 @@ class Moneyworks extends Database {
         return $this->db_query($sql); 
     }
 
-    public function updateInvestment($id, $type, $profit, $loss, $daily_earning, $end_date) {
-        $sql = "UPDATE TABLE `investments` SET `type`='$type', `profit_percentage`='$profit', `loss_percentage`='$loss', `daily_earning`='$daily_earning', `end_date`='$end_date' WHERE `id`='$id'"; 
+    public function getUserInvestments($username) {
+        $sql = "SELECT * FROM investments WHERE `username`='$username'";
         return $this->db_query($sql); 
     }
 
-    public function addBalance($id, $amount) {
-        // get existing balance
-        $sql_bal = "SELECT `balance` FROM users WHERE `id`='$id'";
-        $results = $this->db_query($sql_bal); 
-        if ($results) {
-            $new_balance = $amount + $results; 
-            $sql = "UPDATE TABLE users SET `balance`='$new_balance'"; 
-            return $this->db_query($sql); 
-        }
+    public function updateBalance($username, $balance) {
+        $sql = "UPDATE users SET `balance`='$balance' WHERE `username`='$username'"; 
+        return $this->db_query($sql);
     }
 
-    public function addIncome($id, $amount, $description) {
-        $res = addBalance($id, $amount);
-        if ($res) {
-            $sql = "INSERT INTO income (`user_id`, `description`, `amount`) VALUES ('$id', '$description', '$amount')"; 
-            return $this->db_query($sql);
-        }
+    public function getBalance($username) {
+        $sql = "SELECT `balance` FROM users WHERE `username`='$username'";
+        return $this->db_query($sql);
     }
 
     public function addUser($email, $username, $password) {
