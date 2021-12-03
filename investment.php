@@ -1,42 +1,4 @@
-<?php
-
-require("database/controllers/input_controller.php"); 
-
-$username = $_GET['username'];
-
-echo $username;
-
-if(isset($_POST['addexpense'])) {
-  $description = $_POST['description'];
-  $category = $_POST['category'];
-  $cost = $_POST['cost']; 
-  $results = addExpense($username, $description, $cost, $category); 
-  if($results) {
-    $current_balance = getBalance($username)->fetch_array(MYSQLI_NUM);
-    $current_balance = $current_balance[0]; 
-    $new_balance = $current_balance - $cost; 
-    $result2 = updateBalance($username, $new_balance); 
-    if ($result2) {
-      ?> 
-      <script> alert("Expense added and balance updated successfully.") </script>
-      <?php
-      header("location: ./dashboard.php?username=$username");
-    } else {
-      ?> 
-      <script> alert("Balance update failed. Please try again.") </script>
-      <?php
-      header("location: ./add-expense.php?username=$username");
-    }
-  } else {
-    ?> 
-    <script> alert("Adding expense failed. Please try again.") </script>
-    <?php
-    header("location: ./add-expense.php?username=$username");
-  }
-
-}
-
-?>
+<?php require("functions/add-investment.php"); ?>)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +7,7 @@ if(isset($_POST['addexpense'])) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Add Expense - Moneyworks!</title>
+  <title>Add Investment - Moneyworks</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -83,9 +45,6 @@ if(isset($_POST['addexpense'])) {
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-
-    </nav><!-- End Icons Navigation -->
-
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
@@ -94,30 +53,30 @@ if(isset($_POST['addexpense'])) {
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <?php echo "<a class='nav-link' href='dashboard.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link' href='dashboard.php?username=$username'>"; ?>
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='add-balance.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link' href='balance.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
-          <span>Update Balance</span>
+          <span>Add Balance</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="#">
+      <?php echo "<a class='nav-link' href='expense.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
           <span>Add Expense</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='add-investment.php?username=$username'>"; ?>
+        <a class="nav-link " href="#">
           <i class="bi bi-arrow-down-up"></i>
-          <span>Add Investment</span>
+          <span>Update Investment</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -138,7 +97,7 @@ if(isset($_POST['addexpense'])) {
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="login.php">
+        <a class="nav-link collapsed" href="pages-login.html">
           <i class="bi bi-box-arrow-left"></i>
           <span>Logout</span>
         </a>
@@ -151,7 +110,7 @@ if(isset($_POST['addexpense'])) {
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Expenses</h1>
+      <h1>Investments</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -160,44 +119,48 @@ if(isset($_POST['addexpense'])) {
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Add New Expense</h5>
+              <h5 class="card-title">Add New Investment</h5>
 
               <!-- General Form Elements -->
               <form method="post" >
                 <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">Description</label>
+                  <label for="inputText" class="col-sm-2 col-form-label">Description</label><br>
                   <div class="col-sm-10">
                     <input type="text" name="description" class="form-control" required>
                   </div>
                 </div>
-                
 
                 <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Category</label>
+                  <label class="col-sm-2 col-form-label">Type</label>
                   <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="category" required>
-                      <option selected>Select Category</option>
-                      <option value="general">General</option>
-                      <option value="fashion">Clothing</option>
-                      <option value="vacation">Vacation</option>
-                      <option value="food">Food</option>                    
-                      <option value="gifts">Gifts</option>
-                      <option value="miscellaneous">Miscellaneous</option>
+                    <select class="form-select" name="type" aria-label="Default select example" required>
+                      <option selected value="">Select type</option>
+                      <option value="cryptocurrency">Cryptocurrency</option>
+                      <option value="forex">Forex</option>
+                      <option value="stocks">Stocks</option>
+                      <option value="other">Other</option>                    
                     </select>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">Cost</label>
+                  <label for="inputText" class="col-sm-2 col-form-label">Daily Profit %</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" name="cost" required>
+                    <input type="number" name="profit" class="form-control" required>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">          </label>
+                  <label for="inputText" class="col-sm-2 col-form-label">Amount</label>
                   <div class="col-sm-10">
-                    <input type="submit" name="addexpense" class="btn btn-primary" value="Add Expense">
+                    <input type="text" name="amount" class="form-control" required>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">             </label>
+                  <div class="col-sm-10">
+                    <input type="submit" name="addinvestment" class="btn btn-primary" value="Add Investment">
                   </div>
                 </div>
 
@@ -217,7 +180,7 @@ if(isset($_POST['addexpense'])) {
     <div class="copyright">
       &copy; 2021 <strong><span>Moneyworks!</span></strong>. All Rights Reserved
     </div>
-    <div class="credits">
+    <div class="credits"
     </div>
   </footer><!-- End Footer -->
 

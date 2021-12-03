@@ -1,31 +1,4 @@
-<?php
-
-require("database/controllers/input_controller.php"); 
-
-$username = $_GET['username'];
-
-if(isset($_POST['addinvestment'])) {
-
-  $description = $_POST['description'];
-  $type = $_POST['type'];
-  $amount = $_POST['amount']; 
-  $profit = $_POST['profit']; 
-  $results = addInvestment($username, $type, $description, $profit, $amount); 
-  if($results) {
-    ?> 
-    <script> alert("Investment added successfully.") </script>
-    <?php
-    header("location: ./dashboard.php?username=$username");
-  } else {
-    ?> 
-    <script> alert("Adding investment failed. Please try again.") </script>
-    <?php
-    header("location: ./add-investment.php?username=$username");
-  }
-
-}
-
-?>
+<?php require("functions/add-expense.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +7,7 @@ if(isset($_POST['addinvestment'])) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Add Investment - Moneyworks</title>
+  <title>Add Expense - Moneyworks!</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -72,6 +45,9 @@ if(isset($_POST['addinvestment'])) {
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
+
+    </nav><!-- End Icons Navigation -->
+
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
@@ -80,30 +56,30 @@ if(isset($_POST['addinvestment'])) {
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='dashboard.php?username=$username'>"; ?>
+        <?php echo "<a class='nav-link' href='dashboard.php?username=$username'>"; ?>
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='add-balance.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link' href='balance.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
-          <span>Add Balance</span>
+          <span>Update Balance</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='add-expense.php?username=$username'>"; ?>
+        <a class="nav-link " href="#">
           <i class="bi bi-box-arrow-up-left"></i>
           <span>Add Expense</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="#">
+      <?php echo "<a class='nav-link' href='investment.php?username=$username'>"; ?>
           <i class="bi bi-arrow-down-up"></i>
-          <span>Update Investment</span>
+          <span>Add Investment</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -124,7 +100,7 @@ if(isset($_POST['addinvestment'])) {
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="login.php">
           <i class="bi bi-box-arrow-left"></i>
           <span>Logout</span>
         </a>
@@ -137,7 +113,7 @@ if(isset($_POST['addinvestment'])) {
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Investments</h1>
+      <h1>Expenses</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -146,48 +122,44 @@ if(isset($_POST['addinvestment'])) {
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Add New Investment</h5>
+              <h5 class="card-title">Add New Expense</h5>
 
               <!-- General Form Elements -->
               <form method="post" >
                 <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">Description</label><br>
+                  <label for="inputText" class="col-sm-2 col-form-label">Description</label>
                   <div class="col-sm-10">
                     <input type="text" name="description" class="form-control" required>
                   </div>
                 </div>
+                
 
                 <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Type</label>
+                  <label class="col-sm-2 col-form-label">Category</label>
                   <div class="col-sm-10">
-                    <select class="form-select" name="type" aria-label="Default select example" required>
-                      <option selected value="">Select type</option>
-                      <option value="cryptocurrency">Cryptocurrency</option>
-                      <option value="forex">Forex</option>
-                      <option value="stocks">Stocks</option>
-                      <option value="other">Other</option>                    
+                    <select class="form-select" aria-label="Default select example" name="category" required>
+                      <option selected>Select Category</option>
+                      <option value="general">General</option>
+                      <option value="fashion">Clothing</option>
+                      <option value="vacation">Vacation</option>
+                      <option value="food">Food</option>                    
+                      <option value="gifts">Gifts</option>
+                      <option value="miscellaneous">Miscellaneous</option>
                     </select>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">Daily Profit %</label>
+                  <label for="inputText" class="col-sm-2 col-form-label">Cost</label>
                   <div class="col-sm-10">
-                    <input type="number" name="profit" class="form-control" required>
+                    <input type="number" class="form-control" name="cost" required>
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="inputText" class="col-sm-2 col-form-label">Amount</label>
+                  <label class="col-sm-2 col-form-label">          </label>
                   <div class="col-sm-10">
-                    <input type="text" name="amount" class="form-control" required>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">             </label>
-                  <div class="col-sm-10">
-                    <input type="submit" name="addinvestment" class="btn btn-primary" value="Add Investment">
+                    <input type="submit" name="addexpense" class="btn btn-primary" value="Add Expense">
                   </div>
                 </div>
 
@@ -207,7 +179,7 @@ if(isset($_POST['addinvestment'])) {
     <div class="copyright">
       &copy; 2021 <strong><span>Moneyworks!</span></strong>. All Rights Reserved
     </div>
-    <div class="credits"
+    <div class="credits">
     </div>
   </footer><!-- End Footer -->
 

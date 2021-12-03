@@ -66,21 +66,21 @@ $username = $_GET['username'];
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='add-balance.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link' href='balance.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
           <span>Add Balance</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <?php echo "<a class='nav-link' href='add-expense.php?username=$username'>"; ?>
+        <?php echo "<a class='nav-link' href='expense.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
           <span>Update Expense</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='add-investment.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link' href='investment.php?username=$username'>"; ?>
           <i class="bi bi-arrow-down-up"></i>
           <span>Add Investment</span>
         </a>

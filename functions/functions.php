@@ -1,5 +1,5 @@
 <?php
-    require("database/controllers/input_controller.php"); 
+    require("./database/controllers/input_controller.php"); 
 
     function getExpenses($username) {
         $expenses = getUserExpenses($username); 
