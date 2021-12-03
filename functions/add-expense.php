@@ -4,8 +4,6 @@ require("./database/controllers/input_controller.php");
 
 $username = $_GET['username'];
 
-echo $username;
-
 if(isset($_POST['addexpense'])) {
   $description = $_POST['description'];
   $category = $_POST['category'];

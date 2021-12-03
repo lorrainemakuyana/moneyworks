@@ -15,6 +15,15 @@ class Database {
 		}
 	}
 
+	// function db_connect() {
+	// 	$mysqli = new MySQLi(SERVER, USERNAME, PASSWORD, DATABASE); 
+	// 	if ($mysqli -> connect_errno) {
+	// 		return false;
+	// 	} else {
+	// 		return true; 
+	// 	}
+	// }
+
 	function db_query($sqlQuery){
 		if ((!$this->db_connect()) || ($this->db==null) ) {
 			echo "db connect failed";
