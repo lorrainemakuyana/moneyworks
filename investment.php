@@ -1,4 +1,4 @@
-<?php require("functions/add-investment.php"); ?>)
+<?php require("functions/add-investment.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">

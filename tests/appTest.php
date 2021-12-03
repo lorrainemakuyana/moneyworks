@@ -12,31 +12,38 @@
             $response = addUser($email, $username, $password); 
             $this->assertTrue($response);
         }
+
+        public function testLogin() {
+            $username = "test"; 
+            $password = "test"; 
+            $response = login($username, $password)->fetch_array(MYSQLI_NUM); 
+            $this->assertIsArray($response);
+        }
         
         public function testGetUserInfo() {
-            $username = "makuyana"; 
+            $username = "test"; 
             $response = getUserInfo($username)->fetch_array(MYSQLI_NUM); 
             $this->assertIsArray($response); 
         }
 
         public function testUpdateBalance() {
-            $username = "makuyana"; 
+            $username = "test"; 
             $new_balance = 500;
             $response = updateBalance($username, $new_balance);
             $this->assertTrue($response); 
         }
 
         public function testAddExpense() {
-            $username = "makuyana"; 
+            $username = "test"; 
             $description = "Test add expense";
-            $cost = 0; 
+            $cost = 50; 
             $category = "Miscellaneous"; 
             $response = addExpense($username, $description, $cost, $category); 
             $this->assertTrue($response);
         }
 
         public function testGetUserExpenses() {
-            $username = "makuyana"; 
+            $username = "test"; 
             $response = getUserExpenses($username)->fetch_array(MYSQLI_NUM); 
             $this->assertIsArray($response); 
         }
@@ -48,17 +55,17 @@
         }
 
         public function testAddInvestment() {
-            $username = "makuyana"; 
+            $username = "test"; 
             $type = "Stocks"; 
             $description = "Test add investment";
-            $profit = 2;
-            $amount = 10; 
+            $profit = 5;
+            $amount = 50; 
             $response = addInvestment($username, $type, $description, $profit, $amount);
             $this->assertTrue($response);
         }
 
         public function testGetUserInvestments() {
-            $username = "makuyana"; 
+            $username = "test"; 
             $response = getUserInvestments($username)->fetch_array(MYSQLI_NUM); 
             $this->assertIsArray($response);
         }
@@ -70,7 +77,7 @@
         }
 
         public function testChangePassword() {
-            $username = "makuyana"; 
+            $username = "test"; 
             $newpassword = "1234";
             $response = changePassword($username, $newpassword);
             $this->assertTrue($response); 
