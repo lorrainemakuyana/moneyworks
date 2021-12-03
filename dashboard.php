@@ -1,4 +1,5 @@
 <?php
+
   require("functions.php");
 
   $username = $_GET['username'];
@@ -93,6 +94,13 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+      <?php echo "<a class='nav-link' href='add-balance.php?username=$username'>"; ?>
+          <i class="bi bi-box-arrow-up-left"></i>
+          <span>Update Balance</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
         <?php echo "<a class='nav-link' href='add-expense.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
           <span>Add Expense</span>
@@ -109,28 +117,21 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+      <?php echo "<a class='nav-link collapsed' href='user-profile.php?username=$username'>"; ?>
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
+      <?php echo "<a class='nav-link collapsed' href='contact.php?username=$username'>"; ?>
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="login.php">
           <i class="bi bi-box-arrow-left"></i>
           <span>Logout</span>
         </a>
@@ -146,7 +147,7 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item">Hom</li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
@@ -287,11 +288,6 @@
       &copy; 2021 <strong><span>Moneyworks</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
     </div>
   </footer><!-- End Footer -->
 

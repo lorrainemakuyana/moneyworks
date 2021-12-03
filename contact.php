@@ -1,3 +1,9 @@
+<?php
+
+$username = $_GET['username'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +11,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Contact - NiceAdmin Bootstrap Template</title>
+  <title>Contact - Moneyworks</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,13 +34,6 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.2.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -60,21 +59,28 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dashboard.html">
+      <?php echo "<a class='nav-link' href='dashboard.php?username=$username'>"; ?>
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="add-expense.html">
+      <?php echo "<a class='nav-link' href='add-balance.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
-          <span>Add Expense</span>
+          <span>Add Balance</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="add-investment.html">
+        <?php echo "<a class='nav-link' href='add-expense.php?username=$username'>"; ?>
+          <i class="bi bi-box-arrow-up-left"></i>
+          <span>Update Expense</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+      <?php echo "<a class='nav-link' href='add-investment.php?username=$username'>"; ?>
           <i class="bi bi-arrow-down-up"></i>
           <span>Add Investment</span>
         </a>
@@ -83,28 +89,21 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+      <?php echo "<a class='nav-link collapsed' href='user-profile.php?username=$username'>"; ?>
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+      <?php echo "<a class='nav-link' href='contact.php?username=$username'>"; ?>
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="login.php">
           <i class="bi bi-box-arrow-left"></i>
           <span>Logout</span>
         </a>
@@ -131,21 +130,21 @@
               <div class="info-box card">
                 <i class="bi bi-geo-alt"></i>
                 <h3>Address</h3>
-                <p>A108 Adam Street,<br>New York, NY 535022</p>
+                <p>Ashesi University<br> Ghana </p>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="info-box card">
                 <i class="bi bi-telephone"></i>
                 <h3>Call Us</h3>
-                <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                <p>+233 123 456 789<br>+1 2345 6789</p>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="info-box card">
                 <i class="bi bi-envelope"></i>
                 <h3>Email Us</h3>
-                <p>info@example.com<br>contact@example.com</p>
+                <p>info@moneyworks.com<br>contact@moneyworks.com</p>
               </div>
             </div>
             <div class="col-lg-6">
@@ -171,11 +170,6 @@
       &copy; Copyright <strong><span>Moneyworks!</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
     </div>
   </footer><!-- End Footer -->
 

@@ -133,4 +133,25 @@
             return false;
         }
     }
+
+    function getUserInfo($username) {
+        $request = new Moneyworks; 
+        $runQuery = $request->getUserInfo($username); 
+        if ($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
+    }
+
+    function changePassword($username, $newpassword) {
+        $request = new Moneyworks; 
+        $protected_password = md5($newpassword);
+        $runQuery = $request->changePassword($username, $protected_password); 
+        if ($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
+    }
 ?>

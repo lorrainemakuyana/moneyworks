@@ -1,3 +1,31 @@
+<?php
+
+require("database/controllers/input_controller.php"); 
+
+$username = $_GET['username'];
+
+$details = getUserInfo($username)->fetch_array(MYSQLI_NUM); 
+$balance = $details[3];
+$email = $details[4];
+
+if(isset($_POST['changepassword'])) {
+
+  $password = $_POST['password']; 
+  if (login($username, $password)) {
+    $newpassword = $_POST['renewpassword']; 
+    $result = changePassword($username, $newpassword); 
+    if ($result) {
+      echo '<script> alert("You have successfully changed your password.") </script>'; 
+    } else {
+      echo '<script> alert("Change password unsuccessful....") </script>'; 
+    }
+  } else {
+    echo '<script> alert("cant change this what?") </script>'; 
+  }
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +33,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Users / Profile - NiceAdmin Bootstrap Template</title>
+  <title>Your Profile - Moneyworks!</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -29,12 +57,6 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.2.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -60,21 +82,28 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dashboard.html">
+      <?php echo "<a class='nav-link' href='dashboard.php?username=$username'>"; ?>
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="add-expense.html">
+      <?php echo "<a class='nav-link' href='add-balance.php?username=$username'>"; ?>
+          <i class="bi bi-box-arrow-up-left"></i>
+          <span>Update Balance</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <?php echo "<a class='nav-link' href='add-expense.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
           <span>Add Expense</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="add-investment.html">
+      <?php echo "<a class='nav-link' href='add-investment.php?username=$username'>"; ?>
           <i class="bi bi-arrow-down-up"></i>
           <span>Add Investment</span>
         </a>
@@ -83,28 +112,21 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+      <?php echo "<a class='nav-link' href='user-profile.php?username=$username'>"; ?>
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
+      <?php echo "<a class='nav-link collapsed' href='contact.php?username=$username'>"; ?>
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="login.php">
           <i class="bi bi-box-arrow-left"></i>
           <span>Logout</span>
         </a>
@@ -120,7 +142,7 @@
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Homes</li>
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
@@ -135,7 +157,7 @@
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
               <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <h2>Kevin Anderson</h2>
+              <h2>Your profile</h2>
             </div>
           </div>
 
@@ -153,10 +175,6 @@
                 </li>
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-                </li>
-
-                <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
                 </li>
 
@@ -168,51 +186,25 @@
                   <h5 class="card-title">Profile Details</h5>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Username</div>
-                    <div class="col-lg-9 col-md-8"></div>
+                    <div class="col-lg-3 col-md-4 label ">Username</div>
+                    <div class="col-lg-9 col-md-8"> <?php echo $username ?></div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8"></div>
+                    <div class="col-lg-9 col-md-8"> <?php echo $email ?> </div>
                   </div>
 
-                </div>
-
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
-                  <!-- Profile Edit Form -->
-                  <form>
-
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Username</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email Address</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email" value="">
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form><!-- End Profile Edit Form -->
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Balance</div>
+                    <div class="col-lg-9 col-md-8"> <?php echo $balance ?> </div>
+                  </div>
 
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
+                  <form method="post">
 
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
@@ -236,7 +228,7 @@
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
+                      <input type="submit" class="btn btn-primary" name="changepassword" value="Change Password" id="changemypassword">
                     </div>
                   </form><!-- End Change Password Form -->
 
@@ -259,11 +251,6 @@
       &copy; 2021 <strong><span>Moneyworks!</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
     </div>
   </footer><!-- End Footer -->
 
@@ -281,6 +268,8 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script src="scripts/changepassword.js"></script>
 
 </body>
 

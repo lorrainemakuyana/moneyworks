@@ -62,6 +62,16 @@ class Moneyworks extends Database {
         $sql = "SELECT * FROM users WHERE `username`='$username' AND `password`='$password'"; 
         return $this->db_query($sql);
     }
+
+    public function getUserInfo($username) {
+        $sql = "SELECT * FROM users WHERE `username`='$username'"; 
+        return $this->db_query($sql);
+    }
+
+    public function changePassword($username, $newpassword) {
+        $sql = "UPDATE users SET `password`='$newpassword' WHERE `username`='$username'"; 
+        return $this->db_query($sql);
+    }
 }
 
 ?>

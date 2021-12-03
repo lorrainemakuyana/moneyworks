@@ -7,3 +7,5 @@ registerButton.onclick(event => {
     alert("Your passwords must match to continue")
     }
 })
+
+
