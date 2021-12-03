@@ -1,4 +1,4 @@
-<?php require("functions/login-function.php"); ?>
+<?php require("functions/login_function.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
