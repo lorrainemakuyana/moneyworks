@@ -93,7 +93,7 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='contact.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link collapsed' href='contact.php?username=$username'>"; ?>
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>

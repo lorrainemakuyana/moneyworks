@@ -62,7 +62,7 @@
       <li class="nav-item">
       <?php echo "<a class='nav-link' href='balance.php?username=$username'>"; ?>
           <i class="bi bi-box-arrow-up-left"></i>
-          <span>Add Balance</span>
+          <span>Update Balance</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -76,7 +76,7 @@
       <li class="nav-item">
         <a class="nav-link " href="#">
           <i class="bi bi-arrow-down-up"></i>
-          <span>Update Investment</span>
+          <span>Add Investment</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -90,7 +90,7 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='contact.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link collapsed' href='contact.php?username=$username'>"; ?>
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
