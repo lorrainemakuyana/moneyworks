@@ -72,6 +72,11 @@ class Moneyworks extends Database {
         $sql = "UPDATE users SET `password`='$newpassword' WHERE `username`='$username'"; 
         return $this->db_query($sql);
     }
+
+    public function getAllUsersInvestments() {
+        $sql = "SELECT `profit` FROM investments";
+        return $this->db_query($sql);
+    }
 }
 
 ?>

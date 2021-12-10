@@ -156,7 +156,7 @@
                     </div>
                     <div class="ps-3">
                       <h6>$ <?php echo $totalInv; ?></h6>
-
+                      <span class="text-muted small pt-2 ps-1"> $<?php echo $avgDailyInv; echo " users avg" ?></span>
                     </div>
                   </div>
                 </div>

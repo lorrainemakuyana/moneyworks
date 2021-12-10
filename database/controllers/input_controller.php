@@ -154,4 +154,14 @@
             return false;
         }
     }
+
+    function getAllUsersInvestments() {
+        $request = new Moneyworks; 
+        $runQuery = $request->getAllUsersInvestments(); 
+        if ($runQuery) {
+            return $runQuery;
+        } else {
+            return false;
+        }
+    }
 ?>

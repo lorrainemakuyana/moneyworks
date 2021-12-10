@@ -76,5 +76,19 @@
             return $totalInv; 
         } return 0;
     }
+
+    function getAllInvestments() {
+        $allInvestments = getAllUsersInvestments();
+        $total = 0; 
+        if($allInvestments) {
+            $invstmt = $allInvestments->fetch_array(MYSQLI_NUM); 
+            while ($invstmt) {
+                $profit = $invstmt[0];
+                $total += $profit;
+                $invstmt = $allInvestments->fetch_array(MYSQLI_NUM);
+            }
+            return $total / mysqli_num_rows($allInvestments); 
+        } return 0;
+    }
     
 ?>
