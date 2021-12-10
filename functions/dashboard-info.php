@@ -9,7 +9,7 @@
   $totalBal = getBalance($username)->fetch_array(MYSQLI_NUM);
   $totalBal = $totalBal[0];
 
-  $avgDailyInv = round(getAllInvestments(), 2, PHP_ROUND_HALF_EVEN);; 
+  $avgDailyInv = round(getAllInvestments(), 2, PHP_ROUND_HALF_EVEN);
 
   if (isset($_GET['expToDelete'])) {
     $id = $_GET['expToDelete']; 
