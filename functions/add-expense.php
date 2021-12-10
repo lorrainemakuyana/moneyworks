@@ -13,8 +13,13 @@ if(isset($_POST['addexpense'])) {
   $current_balance = getBalance($username)->fetch_array(MYSQLI_NUM);
   if ($current_balance[0] == 0) {
       echo '<script> alert("You have $0. Please update your balance first!")</script>';
-     // header("location: ./balance.php?username=$username");
+      header("location: ./balance.php?username=$username");
   } 
+  
+  else if ($current_balance[0] - $cost < 0) {
+    echo '<script> alert("You cannot spend more than you have. Please update your balance first!")</script>';
+    header("location: ./balance.php?username=$username");
+  }
   
   else {
     $results = addExpense($username, $description, $cost, $category); 

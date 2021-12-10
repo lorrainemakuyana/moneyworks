@@ -39,7 +39,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="#" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Moneyworks!</span>
       </a>
@@ -61,14 +61,14 @@
 
       <li class="nav-item">
       <?php echo "<a class='nav-link' href='balance.php?username=$username'>"; ?>
-          <i class="bi bi-box-arrow-up-left"></i>
+          <i class="bi bi-cash-coin"></i>
           <span>Update Balance</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='expense.php?username=$username'>"; ?>
-          <i class="bi bi-box-arrow-up-left"></i>
+        <?php echo "<a class='nav-link' href='expense.php?username=$username'>"; ?>
+          <i class="bx bxs-cart"></i>
           <span>Add Expense</span>
         </a>
       </li><!-- End Dashboard Nav -->
@@ -97,7 +97,7 @@
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="login.php">
           <i class="bi bi-box-arrow-left"></i>
           <span>Logout</span>
         </a>
