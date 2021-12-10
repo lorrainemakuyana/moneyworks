@@ -154,7 +154,7 @@
         <div class="row" data-aos="zoom-out">
           <div class="col-lg-9 text-center text-lg-start">
             <h3>Track your finances today!</h3>
-            <p>It's never too soon to be responsible with your finances. Register today and take your finances into your own hands.</p>
+            <p>It's never too soon to be responsible with your finances. <br> Register today and take your finances into your own hands.</p>
           </div>
           <div class="col-lg-3 cta-btn-container text-center">
             <a class="cta-btn align-middle" href="register.php">Get Started</a>
@@ -170,7 +170,7 @@
 
         <div class="section-title" data-aos="zoom-out">
           <h2>Services</h2>
-          <p>What we do offer</p>
+          <p>What we offer</p>
         </div>
 
         <div class="row">
