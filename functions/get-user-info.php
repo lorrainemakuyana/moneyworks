@@ -1,8 +1,9 @@
 <?php
+session_start(); 
 
 require("./database/controllers/input_controller.php"); 
 
-$username = $_GET['username'];
+$username = $_SESSION['username'];
 
 $details = getUserInfo($username)->fetch_array(MYSQLI_NUM); 
 $balance = $details[3];

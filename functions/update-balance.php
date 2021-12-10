@@ -1,8 +1,9 @@
 <?php
+session_start(); 
 
 require("./database/controllers/input_controller.php"); 
 
-$username = $_GET['username'];
+$username = $_SESSION['username'];
 
 if(isset($_POST['addbalance'])) {
   $amount = $_POST['amount'];
@@ -15,12 +16,12 @@ if($results) {
     ?> 
     <script> alert("Balance updated successfully.") </script>
     <?php
-    header("location: ./dashboard.php?username=$username");
+    header("location: ./dashboard.php");
 } else {
     ?> 
     <script> alert("Balance update failed. Please try again.") </script>
     <?php
-    header("location: ./balance.php?username=$username");
+    header("location: ./balance.php");
 }
 }
 

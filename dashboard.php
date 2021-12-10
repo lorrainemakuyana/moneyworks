@@ -61,21 +61,21 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='balance.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link' href='balance.php'>"; ?>
           <i class="bi bi-cash-coin"></i>
           <span>Update Balance</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <?php echo "<a class='nav-link' href='expense.php?username=$username'>"; ?>
+        <?php echo "<a class='nav-link' href='expense.php'>"; ?>
           <i class="bx bxs-cart"></i>
           <span>Add Expense</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link' href='investment.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link' href='investment.php'>"; ?>
           <i class="bi bi-arrow-down-up"></i>
           <span>Add Investment</span>
         </a>
@@ -84,14 +84,14 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link collapsed' href='user-profile.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link collapsed' href='user-profile.php'>"; ?>
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-      <?php echo "<a class='nav-link collapsed' href='contact.php?username=$username'>"; ?>
+      <?php echo "<a class='nav-link collapsed' href='contact.php'>"; ?>
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>

@@ -1,8 +1,9 @@
 <?php
+session_start(); 
 
 require("./database/controllers/input_controller.php"); 
 
-$username = $_GET['username'];
+$username = $_SESSION['username'];
 
 if(isset($_POST['addinvestment'])) {
 
@@ -15,12 +16,12 @@ if(isset($_POST['addinvestment'])) {
     ?> 
     <script> alert("Investment added successfully.") </script>
     <?php
-    header("location: ./dashboard.php?username=$username");
+    header("location: ./dashboard.php");
   } else {
     ?> 
     <script> alert("Adding investment failed. Please try again.") </script>
     <?php
-    header("location: ./investment.php?username=$username");
+    header("location: ./investment.php");
   }
 
 }

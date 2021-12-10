@@ -1,8 +1,8 @@
 <?php
 
   require("functions.php");
-
-  $username = $_GET['username'];
+  session_start(); 
+  $username = $_SESSION['username']; 
   
   $totalExp = getTotalExpenses($username); 
   $totalInv = getTotalInvestments($username); 
@@ -21,7 +21,7 @@
     $results = deleteExpense($id); 
     if ($results) {
       updateBalance($username, $balance);
-      header("location: ./dashboard.php?username=$username");
+      header("location: ./dashboard.php");
     } 
   }
 
@@ -29,7 +29,7 @@
     $id = $_GET['invToDelete']; 
     $results = deleteInvestment($id); 
     if ($results) {
-      header("location: ./dashboard.php?username=$username");
+      header("location: ./dashboard.php");
     } 
   }
 
