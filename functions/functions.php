@@ -9,12 +9,10 @@
                 $id = $exp[0]; 
                 $description = $exp[2]; 
                 $amount = $exp[3];
-                $category = $exp[4];
                 $date = $exp[5];
                 echo "<tr>";
                 echo "<td> $date </td>";
                 echo "<td> $description </td>";
-                echo "<td> $category </td>";
                 echo "<td> $amount </td>";
                 echo "<td> <a class='btn btn-primary btn-sm' href='dashboard.php?expToDelete=$id'> Delete </a> </td>";
                 echo "</tr>";
@@ -44,7 +42,6 @@
             while ($inv) {
                 $id = $inv[0]; 
                 $date = $inv[2];
-                $type = $inv[3];
                 $description = $inv[4]; 
                 $profit_perc = $inv[5];
                 $amount = $inv[6];
@@ -52,7 +49,6 @@
                 echo "<tr>";
                 echo "<td> $date </td>";
                 echo "<td> $description </td>";
-                echo "<td> $type </td>";
                 echo "<td> $daily_earning </td>";
                 echo "<td> <a class='btn btn-primary btn-sm' href='dashboard.php?invToDelete=$id'> Delete </a> </td>";
                 echo "</tr>";

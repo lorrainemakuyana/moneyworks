@@ -192,7 +192,6 @@
                       <tr>
                         <th scope="col">Date</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Category</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -221,7 +220,6 @@
                       <tr>
                         <th scope="col">Date</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Type</th>
                         <th scope="col">Daily Earning</th>
                         <th scope="col">Action</th>
                       </tr>
