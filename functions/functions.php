@@ -16,7 +16,7 @@
                 echo "<td> $description </td>";
                 echo "<td> $category </td>";
                 echo "<td> $amount </td>";
-                echo "<td> <a class='btn btn-primary btn-sm' href='dashboard.php&expToDelete=$id'> Delete </a> </td>";
+                echo "<td> <a class='btn btn-primary btn-sm' href='dashboard.php?expToDelete=$id'> Delete </a> </td>";
                 echo "</tr>";
                 $exp = $expenses->fetch_array(MYSQLI_NUM);
             }
@@ -54,7 +54,7 @@
                 echo "<td> $description </td>";
                 echo "<td> $type </td>";
                 echo "<td> $daily_earning </td>";
-                echo "<td> <a class='btn btn-primary btn-sm' href='dashboard.php&invToDelete=$id'> Delete </a> </td>";
+                echo "<td> <a class='btn btn-primary btn-sm' href='dashboard.php?invToDelete=$id'> Delete </a> </td>";
                 echo "</tr>";
                 $inv = $investments->fetch_array(MYSQLI_NUM);
             }
