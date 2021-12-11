@@ -81,7 +81,7 @@
                       <p class="small mb-0" style="text-align: center;">Don't have account? <a href="register.php">Create an account</a></p>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0" style="text-align: center;"> <a href="register.php"> Go back home </a></p>
+                      <p class="small mb-0" style="text-align: center;"> <a href="index.php"> Go back home </a></p>
                     </div>
                   </form>
 
